@@ -79,13 +79,16 @@ svg.t, svg.v{ display:block; margin:0 auto; width:100%; height:auto; }
   letter-spacing:.17em;
   text-transform:uppercase;
   color:var(--vino);
-  margin:14px 0 0;
+  /* Ancho propio, más angosto que la tarjeta: un "Para Fulano y Mengana"
+     largo parte de renglón en vez de irse a rozar los bordes. */
+  max-width:322px;
+  margin:14px auto 0;
   font-weight:600;
   text-shadow:0 1px 8px rgba(255,255,255,.9);
 }
 .saludo:empty{ display:none; }
 .saludo.largo{ font-size:13px; letter-spacing:.13em; line-height:1.5; }
-.saludo.muylargo{ font-size:11.5px; letter-spacing:.09em; line-height:1.55; }
+.saludo.muylargo{ font-size:12px; letter-spacing:.10em; line-height:1.6; }
 
 /* ---------- estructura ---------- */
 .cuerpo{ padding:14px 26px 40px; }
