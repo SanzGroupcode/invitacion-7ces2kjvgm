@@ -84,6 +84,8 @@ svg.t, svg.v{ display:block; margin:0 auto; width:100%; height:auto; }
   text-shadow:0 1px 8px rgba(255,255,255,.9);
 }
 .saludo:empty{ display:none; }
+.saludo.largo{ font-size:13px; letter-spacing:.13em; line-height:1.5; }
+.saludo.muylargo{ font-size:11.5px; letter-spacing:.09em; line-height:1.55; }
 
 /* ---------- estructura ---------- */
 .cuerpo{ padding:14px 26px 40px; }
@@ -406,8 +408,15 @@ const FECHA    = new Date('2026-08-30T17:00:00-05:00');
 const $ = id => document.getElementById(id);
 
 /* ---- el nombre del invitado llega por el link: ?para=Tía Marcela ---- */
-const quien = (new URLSearchParams(location.search).get('para') || '').trim().slice(0, 40);
-if (quien) $('saludo').textContent = 'Para ' + quien;
+// 70 caracteres alcanzan para dos nombres completos con apellidos.
+const quien = (new URLSearchParams(location.search).get('para') || '').trim().slice(0, 70);
+if (quien){
+  $('saludo').textContent = 'Para ' + quien;
+  // Un "Para Fulano y Mengana" largo no cabe a tamaño normal: se achica por tramos
+  // para que siempre quepa en dos renglones sin romper la portada.
+  if (quien.length > 38) $('saludo').classList.add('muylargo');
+  else if (quien.length > 24) $('saludo').classList.add('largo');
+}
 
 /* ---- cuenta regresiva ---- */
 const dosDigitos = n => String(n).padStart(2, '0');
